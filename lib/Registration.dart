@@ -1,3 +1,4 @@
+import 'package:car_services/Login.dart';
 import 'package:flutter/material.dart';
 
 
@@ -172,9 +173,11 @@ class _MyRegisterState extends State<MyRegister> {
                             children: [
                               TextButton(
                                 onPressed: () {
-                                  Navigator.pushNamed(context, 'login');
-                                },
-                                child: Text(
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => const MyLogin()),
+                                  );                                },
+                                child:  Text(
                                   'Sign In',
                                   textAlign: TextAlign.left,
                                   style: TextStyle(

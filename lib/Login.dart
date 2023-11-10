@@ -80,12 +80,12 @@ class _MyLoginState extends State<MyLogin> {
                             children: [
                               const Text(
                                 'Sign in',
-                                style: TextStyle(
+                                style: TextStyle( color: Colors.white,
                                     fontSize: 27, fontWeight: FontWeight.w700),
                               ),
                               CircleAvatar(
                                 radius: 30,
-                                backgroundColor: Colors.blue,
+                                backgroundColor: Color(0xff4c505b),
                                 child: IconButton(
                                     color: Colors.white,
                                     onPressed: () {},
@@ -114,7 +114,8 @@ class _MyLoginState extends State<MyLogin> {
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                       decoration: TextDecoration.underline,
-                                      color: Color(0xff4c505b),
+                                      // color: Color(0xff4c505b),
+                                      color: Colors.white,
                                       fontSize: 18),
                                 ),
 
