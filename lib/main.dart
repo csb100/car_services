@@ -1,8 +1,7 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:car_services/Login.dart';
-import 'package:flutter/material.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -75,9 +74,11 @@ class MyHomePage extends StatelessWidget {
                                 onPressed: () {
                                   Navigator.push(
                                     context,
-                                    MaterialPageRoute(builder: (context) => const MyLogin()),
+                                    MaterialPageRoute(
+                                        builder: (context) => const MyLogin()),
                                   );
-                                  }, child: const Text('Book'))
+                                },
+                                child: const Text('Book'))
                           ],
                         ),
                       ),
@@ -400,7 +401,8 @@ class MyHomePage extends StatelessWidget {
                     onPressed: () {},
                     child: Text('Boooooook nooooow!!!'),
                     style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white, backgroundColor: Colors.blue,
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.blue,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(32.0)),
                       minimumSize: Size(110, 40), //////// HERE

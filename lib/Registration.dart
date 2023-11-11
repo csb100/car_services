@@ -1,6 +1,10 @@
-import 'package:car_services/Login.dart';
-import 'package:flutter/material.dart';
+import 'dart:html';
 
+import 'package:car_services/Login.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/material.dart';
 
 class MyRegister extends StatefulWidget {
   const MyRegister({Key? key}) : super(key: key);
@@ -10,6 +14,35 @@ class MyRegister extends StatefulWidget {
 }
 
 class _MyRegisterState extends State<MyRegister> {
+  late String cName, cEmail, cPassword;
+
+  getName(name) {
+    this.cName = name;
+  }
+
+  getEmail(email) {
+    this.cEmail = email;
+  }
+
+  getPassword(password) {
+    this.cPassword = password;
+  }
+
+  createData() {
+    print("signup successfully");
+    DocumentReference documentReference =
+        Firestore.instance.collection("Customers").document(cName);
+
+    Map<String, dynamic> cutomers = {
+      "cName": cName,
+      "cEmail": cEmail,
+      "cPassword": cPassword
+    };
+
+    documentReference.set("Customers").whenComplete(() => print("$cName created"));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -61,12 +94,16 @@ class _MyRegisterState extends State<MyRegister> {
                                   ),
                                 ),
                                 hintText: "Name",
-                                hintStyle: const TextStyle(color: Colors.black38),
+                                hintStyle:
+                                    const TextStyle(color: Colors.black38),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 )),
+                            onChanged: (String name) {
+                              getName(name);
+                            },
                           ),
-                         const SizedBox(
+                          const SizedBox(
                             height: 30,
                           ),
                           TextField(
@@ -82,21 +119,25 @@ class _MyRegisterState extends State<MyRegister> {
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
-                                  borderSide:const BorderSide(
+                                  borderSide: const BorderSide(
                                     color: Colors.black,
                                   ),
                                 ),
                                 hintText: "Email",
-                                hintStyle: const TextStyle(color: Colors.black38),
+                                hintStyle:
+                                    const TextStyle(color: Colors.black38),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 )),
+                            onChanged: (String email) {
+                              getEmail(email);
+                            },
                           ),
-                         const SizedBox(
+                          const SizedBox(
                             height: 30,
                           ),
                           TextField(
-                            style:const TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                             obscureText: true,
                             decoration: InputDecoration(
                                 fillColor: Colors.grey.shade100,
@@ -114,17 +155,20 @@ class _MyRegisterState extends State<MyRegister> {
                                   ),
                                 ),
                                 hintText: "Password",
-                                hintStyle: const TextStyle(color: Colors.black38),
+                                hintStyle:
+                                    const TextStyle(color: Colors.black38),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 )),
+                            onChanged: (String password) {
+                              getPassword(password);
+                            },
                           ),
-
                           const SizedBox(
                             height: 40,
                           ),
                           TextField(
-                            style:const TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                             obscureText: true,
                             decoration: InputDecoration(
                                 fillColor: Colors.grey.shade100,
@@ -142,19 +186,19 @@ class _MyRegisterState extends State<MyRegister> {
                                   ),
                                 ),
                                 hintText: "Confirm Password",
-                                hintStyle: const TextStyle(color: Colors.black38),
+                                hintStyle:
+                                    const TextStyle(color: Colors.black38),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 )),
                           ),
-
                           const SizedBox(
                             height: 40,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                             const Text(
+                              const Text(
                                 'Sign Up',
                                 style: TextStyle(
                                     color: Colors.white,
@@ -166,14 +210,16 @@ class _MyRegisterState extends State<MyRegister> {
                                 backgroundColor: Color(0xff4c505b),
                                 child: IconButton(
                                     color: Colors.white,
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      createData();
+                                    },
                                     icon: const Icon(
                                       Icons.arrow_forward,
                                     )),
                               )
                             ],
                           ),
-                         const SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           Row(
@@ -183,9 +229,11 @@ class _MyRegisterState extends State<MyRegister> {
                                 onPressed: () {
                                   Navigator.push(
                                     context,
-                                    MaterialPageRoute(builder: (context) => const MyLogin()),
-                                  );                                },
-                                child:  Text(
+                                    MaterialPageRoute(
+                                        builder: (context) => const MyLogin()),
+                                  );
+                                },
+                                child: Text(
                                   'Sign In',
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
@@ -193,7 +241,7 @@ class _MyRegisterState extends State<MyRegister> {
                                       color: Colors.white,
                                       fontSize: 18),
                                 ),
-                                style:const ButtonStyle(),
+                                style: const ButtonStyle(),
                               ),
                             ],
                           )
@@ -210,5 +258,3 @@ class _MyRegisterState extends State<MyRegister> {
     );
   }
 }
-
-
