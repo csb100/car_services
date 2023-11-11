@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "706050040426",
+    "project_id": "car-service-6185a",
+    "storage_bucket": "car-service-6185a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:706050040426:android:80826f0344ec9cff73a013",
+        "android_client_info": {
+          "package_name": "com.example.car_services"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkPy8ij8pECKUeuRi6AGMVLzytKfyv374"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
