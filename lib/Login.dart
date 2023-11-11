@@ -46,6 +46,7 @@ class _MyLoginState extends State<MyLogin> {
                         children: [
 
                           TextField(
+                            keyboardType: TextInputType.emailAddress,
                             style: const TextStyle(color: Colors.black),
                             decoration: InputDecoration(
                               fillColor: Colors.grey.shade100,
