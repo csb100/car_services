@@ -389,7 +389,7 @@ class MyHomePage extends StatelessWidget {
 
             Container(),
 
-            Row(
+            Column(
                 // mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -397,8 +397,7 @@ class MyHomePage extends StatelessWidget {
                     onPressed: () {},
                     child: Text('Boooooook nooooow!!!'),
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.blue, // background
-                      onPrimary: Colors.white,
+                      foregroundColor: Colors.white, backgroundColor: Colors.blue,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(32.0)),
                       minimumSize: Size(110, 40), //////// HERE
