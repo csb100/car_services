@@ -13,6 +13,7 @@ class MyRegister extends StatefulWidget {
 }
 
 class _MyRegisterState extends State<MyRegister> {
+  int _index = 0;
   // late String cName, cEmail, cPassword;
 
   // getName(name) {
@@ -252,6 +253,28 @@ class _MyRegisterState extends State<MyRegister> {
               ),
             ),
           ],
+        ),
+
+        bottomNavigationBar: ClipRRect(
+          borderRadius:const BorderRadius.only(topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0), ),
+          child: BottomNavigationBar(
+            // type: BottomNavigationBarType.fixed,
+              backgroundColor: Colors.white38,
+              onTap: (tappedItemIndex) => setState(() {
+                _index = tappedItemIndex;
+              }),
+
+              currentIndex: _index,
+              // iconSize: 20.0,
+              items: const [
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.home), label:'Home'),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.search), label: 'Search'),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.person), label:'Profile'),
+
+              ]),
         ),
       ),
     );
