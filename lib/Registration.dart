@@ -259,7 +259,7 @@ class _MyRegisterState extends State<MyRegister> {
           borderRadius:const BorderRadius.only(topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0), ),
           child: BottomNavigationBar(
             // type: BottomNavigationBarType.fixed,
-              backgroundColor: Colors.white38,
+              backgroundColor: Colors.white,
               onTap: (tappedItemIndex) => setState(() {
                 _index = tappedItemIndex;
               }),
