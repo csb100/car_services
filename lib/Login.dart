@@ -11,6 +11,8 @@ class MyLogin extends StatefulWidget {
 }
 
 class _MyLoginState extends State<MyLogin> {
+  final mykey = GlobalKey<FormState>();
+  TextEditingController email = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,7 +22,9 @@ class _MyLoginState extends State<MyLogin> {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: Stack(
+        body:Form(
+          key: mykey,
+          child: Stack(
           children: [
 
             Container(),
@@ -33,7 +37,9 @@ class _MyLoginState extends State<MyLogin> {
               ),
             ),
 
+            // SingleChildScrollView
             SingleChildScrollView(
+
               child: Container(
                 padding: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height * 0.5),
@@ -42,107 +48,118 @@ class _MyLoginState extends State<MyLogin> {
                   children: [
                     Container(
                       margin: const EdgeInsets.only(left: 35, right: 35),
-                      child: Column(
-                        children: [
+                        child: Column(
+                          children: [
 
-                          TextField(
-                            keyboardType: TextInputType.emailAddress,
-                            style: const TextStyle(color: Colors.black),
-                            decoration: InputDecoration(
-                              fillColor: Colors.grey.shade100,
-                              filled: true,
-                              hintText: "Email",
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
+                            TextField(
+                              controller: email,
+                              keyboardType: TextInputType.emailAddress,
+                              style: const TextStyle(color: Colors.black),
+                              decoration: InputDecoration(
+                                fillColor: Colors.grey.shade100,
+                                filled: true,
+                                hintText: "Email",
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
                               ),
                             ),
-                          ),
 
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          TextField(
-                            style: const TextStyle(),
-                            obscureText: true,
-                            decoration: InputDecoration(
-                              fillColor: Colors.grey.shade100,
-                              filled: true,
-                              hintText: "Password",
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
+                            const SizedBox(
+                              height: 30,
+                            ),
+
+                            TextField(
+                              style: const TextStyle(),
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                fillColor: Colors.grey.shade100,
+                                filled: true,
+                                hintText: "Password",
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
                               ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 40,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                'Sign in',
-                                style: TextStyle( color: Colors.white,
-                                    fontSize: 27, fontWeight: FontWeight.w700),
-                              ),
-                              CircleAvatar(
-                                radius: 30,
-                                backgroundColor: Color(0xff4c505b),
-                                child: IconButton(
-                                    color: Colors.white,
-                                    onPressed: () {},
-                                    icon: const Icon(
-                                      Icons.arrow_forward,
-                                    )),
-                              )
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 40,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => const MyRegister()),
-                                  );
-                                },
 
-                                child:  Text(
-                                  'Sign Up',
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                      decoration: TextDecoration.underline,
-                                      // color: Color(0xff4c505b),
-                                      color: Colors.white,
-                                      fontSize: 18),
+                            const SizedBox(
+                              height: 40,
+                            ),
+
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  'Sign in',
+                                  style: TextStyle( color: Colors.white,
+                                      fontSize: 27, fontWeight: FontWeight.w700),
                                 ),
 
-                                style:const ButtonStyle(),
-                              ),
-                              TextButton(
-                                  onPressed: () {},
-                                  child:const Text(
-                                    'Forgot Password',
+                                CircleAvatar(
+                                  radius: 30,
+                                  backgroundColor: Color(0xff4c505b),
+                                  child: IconButton(
+                                      color: Colors.white,
+                                      onPressed: () {
+                                        if(mykey.currentState!.validate()){
+
+                                        }
+                                      },
+                                      icon: const Icon(
+                                        Icons.arrow_forward,
+                                      )),
+                                )
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 40,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => const MyRegister()),
+                                    );
+                                  },
+
+                                  child:  Text(
+                                    'Sign Up',
+                                    textAlign: TextAlign.left,
                                     style: TextStyle(
-                                      decoration: TextDecoration.underline,
-                                      color:
-                                      Color(0xff4c505b),
-                                      fontSize: 18,
-                                    ),
-                                  )),
-                            ],
-                          )
-                        ],
-                      ),
+                                        decoration: TextDecoration.underline,
+                                        // color: Color(0xff4c505b),
+                                        color: Colors.white,
+                                        fontSize: 18),
+                                  ),
+
+                                  style:const ButtonStyle(),
+                                ),
+                                TextButton(
+                                    onPressed: () {},
+                                    child:const Text(
+                                      'Forgot Password',
+                                      style: TextStyle(
+                                        decoration: TextDecoration.underline,
+                                        color:
+                                        Color(0xff4c505b),
+                                        fontSize: 18,
+                                      ),
+                                    )),
+                              ],
+                            )
+                          ],
+                        ),
+
                     )
                   ],
                 ),
               ),
             ),
           ],
+        ),
         ),
       ),
     );
