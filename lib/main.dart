@@ -73,15 +73,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class Categories extends StatelessWidget {
-  const Categories({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}
-
 //
 // @override
 // Widget build(BuildContext context) {
