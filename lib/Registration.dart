@@ -1,4 +1,3 @@
-import 'dart:html';
 
 import 'package:car_services/Login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -31,17 +30,17 @@ class _MyRegisterState extends State<MyRegister> {
   createData() {
     print("signup successfully");
     DocumentReference documentReference =
-        Firestore.instance.collection("Customers").document(cName);
+    FirebaseFirestore.instance.collection("Customers").doc(cName);
 
-    Map<String, dynamic> cutomers = {
+    Map<String, dynamic> customers = {
       "cName": cName,
       "cEmail": cEmail,
-      "cPassword": cPassword
+      "cPassword": cPassword,
     };
 
-    documentReference.set("Customers").whenComplete(() => print("$cName created"));
-    });
+    documentReference.set(customers).whenComplete(() => print("$cName created"));
   }
+
 
   @override
   Widget build(BuildContext context) {
