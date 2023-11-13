@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'Drawer.dart';
 import 'Login.dart';
 
 
@@ -18,6 +19,9 @@ class _InfoHomeState extends State<InfoHome> {
   Widget build(BuildContext context) {
 
     return Scaffold(
+      drawer: NavBar(
+
+      ),
       appBar: AppBar(
         title: const Center(child: Text('Home',style: TextStyle(fontSize: 28),)),
       ),

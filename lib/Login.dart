@@ -1,4 +1,5 @@
 import 'package:car_services/Registration.dart';
+import 'package:car_services/main.dart';
 import 'package:flutter/material.dart';
 
 
@@ -169,6 +170,12 @@ class _MyLoginState extends State<MyLogin> {
               backgroundColor: Colors.white,
               onTap: (tappedItemIndex) => setState(() {
                 _index = tappedItemIndex;
+                if(_index == 0){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const MyHomePage()),
+                  );                }
               }),
 
               currentIndex: _index,

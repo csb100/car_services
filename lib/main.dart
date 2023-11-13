@@ -47,27 +47,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
       body:const InfoHome(),
 
-        bottomNavigationBar: ClipRRect(
-        borderRadius:const BorderRadius.only(topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0), ),
-         child: BottomNavigationBar(
-        // type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.white38,
-            onTap: (tappedItemIndex) => setState(() {
-              _index = tappedItemIndex;
-            }),
-
-            currentIndex: _index,
-            // iconSize: 20.0,
-            items: const [
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.home), label:'Home'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.search), label: 'Search'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.person), label:'Profile'),
-
-            ]),
-        ),
 
     );
   }
