@@ -6,7 +6,7 @@ import 'InfoHome.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: AnimatedSplashScreen(
-          duration: 4000,
+          duration: 3000,
           // splashTransition: SplashTransition.scaleTransition,
           backgroundColor: Colors.blue,
           splashIconSize: 300,

@@ -1,7 +1,7 @@
 import 'package:car_services/Login.dart';
 import 'package:car_services/main.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class MyRegister extends StatefulWidget {
@@ -43,8 +43,13 @@ class _MyRegisterState extends State<MyRegister> {
       User? user = FirebaseAuth.instance.currentUser;
 
       if (user != null) {
-        // Send user data to Firestore
-        await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+        // Send user data to Firebase Realtime Database
+        DatabaseReference userRef = FirebaseDatabase.instance
+            .reference()
+            .child('users')
+            .child(user.uid);
+
+        userRef.set({
           'name': name,
           'email': email,
           // Add other user data as needed
