@@ -1,9 +1,7 @@
-
 import 'package:car_services/Login.dart';
 import 'package:car_services/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class MyRegister extends StatefulWidget {
@@ -15,34 +13,66 @@ class MyRegister extends StatefulWidget {
 
 class _MyRegisterState extends State<MyRegister> {
   int _index = 0;
-  // late String cName, cEmail, cPassword;
 
-  // getName(name) {
-  //   this.cName = name;
-  // }
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
 
-  // getEmail(email) {
-  //   this.cEmail = email;
-  // }
-  //
-  // getPassword(password) {
-  //   this.cPassword = password;
-  // }
+  Future<void> registerUser() async {
+    String name = nameController.text;
+    String email = emailController.text;
+    String password = passwordController.text;
+    String confirmPassword = confirmPasswordController.text;
 
-  // createData() {
-  //   print("signup successfully");
-  //   DocumentReference documentReference =
-  //   FirebaseFirestore.instance.collection("Customers").doc(cName);
-  //
-  //   Map<String, dynamic> customers = {
-  //     "cName": cName,
-  //     "cEmail": cEmail,
-  //     "cPassword": cPassword,
-  //   };
-  //
-  //   documentReference.set(customers).whenComplete(() => print("$cName created"));
-  // }
+    // Perform any validation checks here
+    if (password != confirmPassword) {
+      // Passwords don't match, show an error message
+      print("Passwords do not match");
+      return;
+    }
 
+    try {
+      // Use Firebase Authentication to create a new user
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      // Get the current user
+      User? user = FirebaseAuth.instance.currentUser;
+
+      if (user != null) {
+        // Send user data to Firestore
+        await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+          'name': name,
+          'email': email,
+          // Add other user data as needed
+        });
+
+        print("User registered successfully");
+
+        // Navigate to the login screen
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => MyLogin()),
+        );
+      }
+    } catch (e) {
+      print("Error registering user: $e");
+      // Handle specific registration errors here
+    }
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    super.dispose();
+  }
+  // Security : prevent memory leakage
 
   @override
   Widget build(BuildContext context) {
@@ -78,6 +108,7 @@ class _MyRegisterState extends State<MyRegister> {
                       child: Column(
                         children: [
                           TextField(
+                            controller: nameController,
                             style: const TextStyle(color: Colors.black),
                             decoration: InputDecoration(
                                 fillColor: Colors.grey.shade100,
@@ -100,28 +131,26 @@ class _MyRegisterState extends State<MyRegister> {
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 )),
-                            // onChanged: (String name) {
-                            //   getName(name);
-                            // },
                           ),
                           const SizedBox(
                             height: 30,
                           ),
                           TextField(
-                            style: const TextStyle(color: Colors.white),
+                            controller: emailController,
+                            style: const TextStyle(color: Colors.black),
                             decoration: InputDecoration(
                                 fillColor: Colors.grey.shade100,
                                 filled: true,
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: const BorderSide(
-                                    color: Colors.white,
+                                    color: Colors.black,
                                   ),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: const BorderSide(
-                                    color: Colors.black,
+                                    color: Colors.white,
                                   ),
                                 ),
                                 hintText: "Email",
@@ -130,15 +159,13 @@ class _MyRegisterState extends State<MyRegister> {
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 )),
-                            // onChanged: (String email) {
-                            //   getEmail(email);
-                            // },
                           ),
                           const SizedBox(
                             height: 30,
                           ),
                           TextField(
-                            style: const TextStyle(color: Colors.white),
+                            controller: passwordController,
+                            style: const TextStyle(color: Colors.black),
                             obscureText: true,
                             decoration: InputDecoration(
                                 fillColor: Colors.grey.shade100,
@@ -161,15 +188,13 @@ class _MyRegisterState extends State<MyRegister> {
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 )),
-                            // onChanged: (String password) {
-                            //   getPassword(password);
-                            // },
                           ),
                           const SizedBox(
                             height: 40,
                           ),
                           TextField(
-                            style: const TextStyle(color: Colors.white),
+                            controller: confirmPasswordController,
+                            style: const TextStyle(color: Colors.black),
                             obscureText: true,
                             decoration: InputDecoration(
                                 fillColor: Colors.grey.shade100,
@@ -207,17 +232,15 @@ class _MyRegisterState extends State<MyRegister> {
                                     fontWeight: FontWeight.w700),
                               ),
                               CircleAvatar(
-                                radius: 30,
-                                backgroundColor: Color(0xff4c505b),
-                                child: IconButton(
+                                  radius: 30,
+                                  backgroundColor: Color(0xff4c505b),
+                                  child: IconButton(
                                     color: Colors.white,
-                                    onPressed: () {
-                                      // createData();
-                                    },
+                                    onPressed: registerUser,
                                     icon: const Icon(
                                       Icons.arrow_forward,
-                                    )),
-                              )
+                                    ),
+                                  ))
                             ],
                           ),
                           const SizedBox(
@@ -255,33 +278,32 @@ class _MyRegisterState extends State<MyRegister> {
             ),
           ],
         ),
-
         bottomNavigationBar: ClipRRect(
-          borderRadius:const BorderRadius.only(topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0), ),
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(30.0),
+            topRight: Radius.circular(30.0),
+          ),
           child: BottomNavigationBar(
-            // type: BottomNavigationBarType.fixed,
+              // type: BottomNavigationBarType.fixed,
               backgroundColor: Colors.white,
               onTap: (tappedItemIndex) => setState(() {
-                _index = tappedItemIndex;
-                if(_index == 0){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const MyHomePage()),
-                  );
-                }
-              }),
-
+                    _index = tappedItemIndex;
+                    if (_index == 0) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MyHomePage()),
+                      );
+                    }
+                  }),
               currentIndex: _index,
               // iconSize: 20.0,
               items: const [
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.home), label:'Home'),
+                BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
                 BottomNavigationBarItem(
                     icon: Icon(Icons.search), label: 'Search'),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.person), label:'Profile'),
-
+                    icon: Icon(Icons.person), label: 'Profile'),
               ]),
         ),
       ),
