@@ -33,6 +33,7 @@ class _InfoHomeState extends State<InfoHome> {
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3, mainAxisSpacing: 20, crossAxisSpacing: 20),
               children: [
+
                 Material(
                   child: InkWell(
                     onTap: () {
@@ -83,6 +84,7 @@ class _InfoHomeState extends State<InfoHome> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10.0),
                       child: Image.asset('asset/images/pic1.png',
+                          
                           width: 110.0, height: 110.0),
                     ),
                   ),

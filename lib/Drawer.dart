@@ -12,6 +12,9 @@ class _NavBarState extends State<NavBar> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+        shape:const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(bottomRight: Radius.circular(25),topRight: Radius.circular(25))
+        ),
 
       child: ListView(
         padding: EdgeInsets.zero,

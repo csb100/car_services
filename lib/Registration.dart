@@ -1,5 +1,6 @@
 
 import 'package:car_services/Login.dart';
+import 'package:car_services/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -262,6 +263,13 @@ class _MyRegisterState extends State<MyRegister> {
               backgroundColor: Colors.white,
               onTap: (tappedItemIndex) => setState(() {
                 _index = tappedItemIndex;
+                if(_index == 0){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const MyHomePage()),
+                  );
+                }
               }),
 
               currentIndex: _index,

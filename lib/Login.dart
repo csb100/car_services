@@ -175,7 +175,8 @@ class _MyLoginState extends State<MyLogin> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => const MyHomePage()),
-                  );                }
+                  );
+                }
               }),
 
               currentIndex: _index,
